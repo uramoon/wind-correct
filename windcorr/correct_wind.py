@@ -25,10 +25,10 @@ def correct_wind(mdl_no, stn_no, ymd):
         
     day = 24 * 60 * 60
     year = (365.2425) * day
-    files = os.listdir('input/{0}/'.format(stn_no))
+    files = os.listdir('input/{0}/'.format(mdl_no))
    
     file_obs = None    
-    ptn = 'obs_{0}.csv'.format(stn_no)
+    ptn = 'obs_{0}.csv'.format(mdl_no)
     for file in files:
         if ptn in file:
             file_obs = file            
@@ -40,8 +40,9 @@ def correct_wind(mdl_no, stn_no, ymd):
         print('Error: observation file not found.')
         sys.exit(1)
     
-    df_obs = pd.read_csv('input/{0}/'.format(stn_no) + file_obs)
+    df_obs = pd.read_csv('input/{0}/'.format(mdl_no) + file_obs)
     
+    files = os.listdir('input/{0}/'.format(stn_no))
     file_prd = None
     ptn = '{0}_{1}_00UTC.csv'.format(stn_no, ymd)
     for file in files:
@@ -66,7 +67,7 @@ def correct_wind(mdl_no, stn_no, ymd):
             break
             
     if file_mdl: 
-        print('ECMWF file for model location found: {0}.'.format(file_prd))
+        print('ECMWF file for model location found: {0}.'.format(file_mdl))
     else:
         print('Error: ECMWF file for model location not found.')
         sys.exit(1)
